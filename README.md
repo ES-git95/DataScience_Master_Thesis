@@ -1,1 +1,1 @@
-# DataScience_Master_Thesis
+# DataScience Master Thesis
