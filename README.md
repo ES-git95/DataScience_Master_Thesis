@@ -11,5 +11,7 @@ The project is structured by the following steps:
 2. BAM file insertion into the database schema                --> DBinsertion.py
 3. SQL queries creation                                       --> consensus.sql, coverage.sql, mpileup.sql
 4. SQL index creation                                         --> index_creation.sql
-5. CSV files have been produced for performance evaluation    --> DBinsertion_performance.csv, query_performance_log.csv, samtools_performance_log.csv
-6. CSV files have been processed for statistical evaluations  --> processing_DBinsertion_performance.ipynb, processing_query_performance_log.ipynb, processing_samtools_performance_log.ipynb
+5. CSV files have been produced for performance evaluation    
+    --> DBinsertion_performance.csv, query_performance_log.csv, samtools_performance_log.csv
+7. CSV files have been processed for statistical evaluations  
+    --> processing_DBinsertion_performance.ipynb, processing_query_performance_log.ipynb, processing_samtools_performance_log.ipynb
