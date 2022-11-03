@@ -5,10 +5,6 @@ import sys, getopt
 
 def main(argv):
 
-    Chr_name='chrX'
-    Starting_pos='12245035'
-    Ending_pos='12245084'
-
     try:
         opts, args = getopt.getopt(argv,"r:",["region="])
     except getopt.GetoptError:
@@ -45,9 +41,10 @@ def main(argv):
             counter=0
 
             for i,del_idx in enumerate(del_idxs):
-                df.loc[row[0],'seq']=row[1]['seq'][:del_idx+counter] + '*' + row[1]['seq'][del_idx+counter:]
-                df.loc[row[0],'qual']=row[1]['qual'][:del_idx+counter+1] + row[1]['qual'][del_idx+counter:]
-                dic_index=row[1]['pos']+del_idx+counter-1
+                df.loc[row[0],'seq']=df.loc[row[0],'seq'][:del_idx+counter] + '*' + df.loc[row[0],'seq'][del_idx+counter:]
+                df.loc[row[0],'qual']=df.loc[row[0],'qual'][:del_idx+counter+1] + df.loc[row[0],'qual'][del_idx+counter:]
+                ins_count=cigar_extended[:del_idx+counter].count('I')
+                dic_index=row[1]['pos']+del_idx+counter-1-ins_count
                 if (i==0) | (del_idxs[i-1] != del_idxs[i]-1):
                     if  (dic_index not in del_dic):
                         if (row[1]['flag']==16):
@@ -74,8 +71,8 @@ def main(argv):
             counter=0
 
             for i,ins_idx in enumerate(ins_idxs):
-                df.loc[row[0],'seq']=row[1]['seq'][:ins_idx+counter] + row[1]['seq'][ins_idx+1+counter:]
-                df.loc[row[0],'qual']=row[1]['qual'][:ins_idx+counter] + row[1]['qual'][ins_idx+1+counter:]
+                df.loc[row[0],'seq']=df.loc[row[0],'seq'][:ins_idx+counter] + df.loc[row[0],'seq'][ins_idx+1+counter:] 
+                df.loc[row[0],'qual']=df.loc[row[0],'qual'][:ins_idx+counter] + df.loc[row[0],'qual'][ins_idx+1+counter:] 
                 dic_index=row[1]['pos']+ins_idx+counter-1
                 if (i==0) | (ins_idxs[i-1] != ins_idxs[i]-1):
                     num=ins_num.pop(0)
@@ -97,8 +94,7 @@ def main(argv):
     idxs=list(df.pos)
     idxs_new=list(df.new_pos)
 
-    for position in range(int(Starting_pos),int(Ending_pos)+1): #range(30000547,30000548):#
-        #ixds_filtered=sorted(set(filter(lambda idx: (idx>=position-49 and idx<=position), idxs)))
+    for position in range(int(Starting_pos),int(Ending_pos)+1): 
         ixds_filtered=sorted(set([a for a,b in zip(idxs,idxs_new) if (b>=position-49 and a<=position)]))
         seq_final=[]
         qual_final=[]
