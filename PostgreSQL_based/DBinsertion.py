@@ -85,7 +85,7 @@ def InsertReadTagsRows(sam_file,start,end,counter):
 
 #L'inserimento dei dati avviene su più processi eseguiti in parallelo
 def processor(csv_file,table):
-    status=subprocess.run(["PGPASSWORD=pysam8192 psql -U postgres -h 127.0.0.1  -d pysamdb -c \"\copy "+ str(table) +" FROM '"+str(Path(csv_file).resolve()).replace('\\','\\\\')+"' delimiter ',' csv header\""],
+    status=subprocess.run(["PGPASSWORD=*** psql -U postgres -h 127.0.0.1  -d pysamdb -c \"\copy "+ str(table) +" FROM '"+str(Path(csv_file).resolve()).replace('\\','\\\\')+"' delimiter ',' csv header\""],
                         shell=True, capture_output=True)
 
     print(status.stdout)
