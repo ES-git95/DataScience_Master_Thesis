@@ -1,5 +1,6 @@
 This project aims to compare, in therms of quality and performance, three of the most used SAMtools commands with the result given by respective sperimental programs.
 Samtools commands chosen for the comparison are the following: consensus, mpileup, coverage.
+
 3 versions of the programs have been developed: 2 versions based on SQLite sperimenting 2 different schema versions, 1 version built directly on PostgreSQL.
 The performance comparison will be studied between the sperimental version and Samtools.
 Imput datasets are SAM files.
